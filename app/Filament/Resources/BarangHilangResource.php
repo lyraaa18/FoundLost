@@ -42,8 +42,9 @@ class BarangHilangResource extends Resource
                                 TextInput::make('nama_barang')
                                     ->label('Nama Barang')
                                     ->required()
-                                    ->maxLength(255),
-
+                                    ->maxLength(255)
+                                    ->helperText('Contoh: Dompet, Kunci, dll'),
+                            
                                 DatePicker::make('tanggal_hilang')
                                     ->label('Tanggal Hilang')
                                     ->required()

@@ -1,74 +1,108 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container py-4">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4>Daftar Barang Hilang</h4>
-                    <a href="{{ route('barang.hilang.create') }}" class="btn btn-primary">Laporkan Barang Hilang</a>
+            <div class="card shadow-sm border-0 rounded-lg">
+                <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center py-3">
+                    <h4 class="mb-0 fw-bold">
+                        <i class="fas fa-search-minus me-2"></i>Daftar Barang Hilang
+                    </h4>
+                    <a href="{{ route('barang.hilang.create') }}" class="btn btn-light">
+                        <i class="fas fa-exclamation-circle me-2"></i>Laporkan Barang Hilang
+                    </a>
                 </div>
 
                 <div class="card-body">
                     @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
 
                     <div class="mb-4">
-                        <form action="{{ route('barang.hilang.index') }}" method="GET" class="form-inline">
-                            <div class="input-group w-100">
-                                <input type="text" class="form-control" name="search" placeholder="Cari barang hilang..." value="{{ $search ?? '' }}">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="submit">Cari</button>
-                                </div>
+                        <form action="{{ route('barang.hilang.index') }}" method="GET">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0">
+                                    <i class="fas fa-search text-muted"></i>
+                                </span>
+                                <input type="text" class="form-control border-start-0 ps-0" name="search" 
+                                    placeholder="Cari barang hilang..." value="{{ $search ?? '' }}">
+                                <button class="btn btn-primary" type="submit">Cari</button>
                             </div>
                         </form>
                     </div>
 
                     @if($barangHilang->isEmpty())
                         <div class="text-center py-5">
-                            <h5>Tidak ada barang hilang yang ditemukan</h5>
-                            <p>Tidak menemukan barang yang Anda cari?</p>
-                            <a href="{{ route('barang.ditemukan.index') }}" class="btn btn-info mt-3">Cek Barang Ditemukan</a>
+                            <div class="mb-4">
+                                <i class="fas fa-search fa-4x text-muted"></i>
+                            </div>
+                            <h5 class="text-muted">Tidak ada barang hilang yang ditemukan</h5>
+                            <p class="text-muted">Tidak menemukan barang yang Anda cari?</p>
+                            <a href="{{ route('barang.ditemukan.index') }}" class="btn btn-info mt-3">
+                                <i class="fas fa-box-open me-2"></i>Cek Barang Ditemukan
+                            </a>
                         </div>
                     @else
-                        <div class="row">
+                        <div class="row g-4">
                             @foreach($barangHilang as $barang)
-                                <div class="col-md-4 mb-4">
-                                    <div class="card h-100">
-                                        <div class="card-header">
-                                            <span class="badge bg-{{ $barang->status == 'hilang' ? 'danger' : ($barang->status == 'menunggu' ? 'warning' : 'success') }}">
-                                                {{ ucfirst($barang->status) }}
-                                            </span>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card h-100 border-0 shadow-sm hover-card">
+                                        <div class="position-relative">
+                                            @if($barang->gambar_barang)
+                                                <img src="{{ asset('storage/' . $barang->gambar_barang) }}" 
+                                                    class="card-img-top rounded-top" alt="{{ $barang->nama_barang }}" 
+                                                    style="height: 220px; object-fit: cover;">
+                                            @else
+                                                <div class="card-img-top bg-light d-flex justify-content-center align-items-center rounded-top" 
+                                                    style="height: 220px;">
+                                                    <i class="fas fa-image fa-3x text-muted"></i>
+                                                </div>
+                                            @endif
+                                            <div class="position-absolute top-0 start-0 m-3">
+                                                <span class="badge bg-{{ $barang->status == 'hilang' ? 'danger' : ($barang->status == 'menunggu' ? 'warning' : 'success') }} px-3 py-2 rounded-pill">
+                                                    @if($barang->status == 'hilang')
+                                                        <i class="fas fa-exclamation-circle me-1"></i>
+                                                    @elseif($barang->status == 'menunggu')
+                                                        <i class="fas fa-clock me-1"></i>
+                                                    @else
+                                                        <i class="fas fa-check-circle me-1"></i>
+                                                    @endif
+                                                    {{ ucfirst($barang->status) }}
+                                                </span>
+                                            </div>
                                         </div>
                                         
-                                        @if($barang->gambar_barang)
-                                            <img src="{{ asset('storage/' . $barang->gambar_barang) }}" class="card-img-top" alt="{{ $barang->nama_barang }}" style="height: 200px; object-fit: cover;">
-                                        @else
-                                            <div class="card-img-top bg-light d-flex justify-content-center align-items-center" style="height: 200px;">
-                                                <span class="text-muted">Tidak ada gambar</span>
-                                            </div>
-                                        @endif
-                                        
                                         <div class="card-body">
-                                            <h5 class="card-title">{{ $barang->nama_barang }}</h5>
-                                            <p class="card-text">
-                                                <small class="text-muted"><i class="fas fa-map-marker-alt"></i> {{ $barang->lokasi_hilang }}</small><br>
-                                                <small class="text-muted"><i class="fas fa-map-signs"></i> Lokasi Pengambilan: {{ $barang->lokasi_pengambilan ?? '-' }}</small><br>
-                                                <small class="text-muted"><i class="fas fa-calendar"></i> {{ \Carbon\Carbon::parse($barang->tanggal_hilang)->format('d-m-Y') }}</small>
-
-                                            </p>
-                                            <a href="{{ route('barang.hilang.show', $barang->id) }}" class="btn btn-sm btn-outline-primary">Detail</a>
+                                            <h5 class="card-title fw-bold mb-3">{{ $barang->nama_barang }}</h5>
+                                            <div class="d-flex flex-column gap-2 mb-3">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="fas fa-map-marker-alt text-danger me-2"></i>
+                                                    <span>{{ $barang->lokasi_hilang }}</span>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <i class="fas fa-map-signs text-primary me-2"></i>
+                                                    <span>Lokasi Pengambilan: {{ $barang->lokasi_pengambilan ?? '-' }}</span>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <i class="fas fa-calendar-alt text-success me-2"></i>
+                                                    <span>{{ \Carbon\Carbon::parse($barang->tanggal_hilang)->format('d-m-Y') }}</span>
+                                                </div>
+                                            </div>
+                                            <a href="{{ route('barang.hilang.show', $barang->id) }}" 
+                                                class="btn btn-primary w-100">
+                                                <i class="fas fa-info-circle me-2"></i>Lihat Detail
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
                         
-                        <div class="d-flex justify-content-center mt-4">
+                        <div class="d-flex justify-content-center mt-5">
                             {{ $barangHilang->appends(['search' => $search])->links() }}
                         </div>
                     @endif
@@ -77,4 +111,24 @@
         </div>
     </div>
 </div>
+
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(to right, #4e73df, #224abe);
+    }
+    
+    .hover-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .hover-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+    
+    .pagination {
+        --bs-pagination-active-bg: #4e73df;
+        --bs-pagination-active-border-color: #4e73df;
+    }
+</style>
 @endsection

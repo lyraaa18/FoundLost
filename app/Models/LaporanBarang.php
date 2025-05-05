@@ -24,6 +24,7 @@ class LaporanBarang extends Model
         'lokasi_pengambilan',
         'bukti_barang',
         'bukti_perjalanan',
+        'nama_barang',
     ];
 
     protected $casts = [

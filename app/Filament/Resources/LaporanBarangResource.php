@@ -51,6 +51,12 @@ class LaporanBarangResource extends Resource
                                     ->default('pending')
                                     ->required(),
 
+                                TextInput::make('nama_barang')
+                                    ->label('Nama Barang')
+                                    ->required()
+                                    ->maxLength(255)
+                                    ->helperText('Contoh: Dompet, Kunci, dll'),
+
                                 TextInput::make('nama_pelapor')
                                     ->label('Nama Pelapor')
                                     ->required()
@@ -88,11 +94,19 @@ class LaporanBarangResource extends Resource
                             ->rows(4)
                             ->columnSpanFull()
                             ->maxLength(1000),
+
                         FileUpload::make('gambar_barang')
                             ->disk('public')
                             ->directory('laporan-barang/bukti')
                             ->visibility('public')
+                            ->required(),
+
+                        FileUpload::make('bukti_perjalanan')
+                            ->disk('public')
+                            ->directory('laporan-barang/bukti')
+                            ->visibility('public')
                             ->required()
+                            ->label('Bukti Perjalanan'),
                     ])
                     ->columns(1),
             ]);
@@ -109,6 +123,12 @@ class LaporanBarangResource extends Resource
                     ->width(60)
                     ->height(60)
                     ->toggleable(),
+
+                TextColumn::make('nama_barang')
+                    ->label('Nama Barang')
+                    ->searchable()
+                    ->sortable()
+                    ->limit(30),    
 
                 BadgeColumn::make('status')
                     ->label('Status')
@@ -147,6 +167,13 @@ class LaporanBarangResource extends Resource
                     ->dateTime('d M Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('bukti_perjalanan')
+                    ->label('Bukti Perjalanan')
+                    // ->url(fn (LaporanBarang $record): string => $record->bukti_perjalanan)
+                    // ->openUrlInNewTab()
+                    // ->toggleable()
+
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
