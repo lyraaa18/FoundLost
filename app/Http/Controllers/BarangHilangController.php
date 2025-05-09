@@ -12,8 +12,8 @@ class BarangHilangController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        
-        $query = BarangHilang::query();
+        $query = BarangHilang::query()->where('status', 'terverifikasi');
+        // $query = BarangHilang::query();
         
         if ($search) {
             $query->where(function($q) use ($search) {
@@ -43,11 +43,23 @@ class BarangHilangController extends Controller
             'tanggal_hilang' => 'required|date',
             'lokasi_hilang' => 'required|string|max:255',
             'gambar_barang' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'lokasi_pengambilan' => 'nullable|string|max:255',
+            'bukti_perjalanan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        $validated['status'] = 'pending';
         
         if ($request->hasFile('gambar_barang')) {
             $path = $request->file('gambar_barang')->store('barang-hilang', 'public');
             $validated['gambar_barang'] = $path;
+        }
+
+        if ($request->hasFile('bukti_perjalanan')) {
+            // Buat nama file yang unik dengan timestamp
+            $filename = time() . '_' . $request->file('bukti_perjalanan')->getClientOriginalName();
+            // Simpan file dengan nama yang unik
+            $path = $request->file('bukti_perjalanan')->storeAs('bukti-perjalanan', $filename, 'public');
+            $validated['bukti_perjalanan'] = $path;
         }
         
         BarangHilang::create($validated);

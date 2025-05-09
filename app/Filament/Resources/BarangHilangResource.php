@@ -57,13 +57,13 @@ class BarangHilangResource extends Resource
 
                                 Select::make('status')
                                     ->label('Status')
-                                    ->required()
                                     ->options([
-                                        'hilang' => 'Hilang',
-                                        'ditemukan' => 'Ditemukan',
-                                        'menunggu' => 'Menunggu',
+                                        'pending' => 'Pending',
+                                        'terverifikasi' => 'Terverifikasi',
+                                        'selesai' => 'Selesai',
                                     ])
-                                    ->default('hilang'),
+                                    ->default('pending')
+                                    ->required(),
 
                                 TextInput::make('nama_pemilik')
                                     ->label('Nama Pemilik')
@@ -104,6 +104,13 @@ class BarangHilangResource extends Resource
                             ->downloadable()
                             ->preserveFilenames()
                             ->enableOpen(),
+                        
+                        FileUpload::make('bukti_perjalanan')
+                            ->disk('public')
+                            ->directory('laporan-barang/bukti')
+                            ->visibility('public')
+                            ->required()
+                            ->label('Bukti Perjalanan'),
                     ])
                     ->columns(1),
             ]);
@@ -129,9 +136,9 @@ class BarangHilangResource extends Resource
                 BadgeColumn::make('status')
                     ->label('Status')
                     ->colors([
-                        'danger' => 'hilang',
-                        'success' => 'ditemukan',
-                        'warning' => 'menunggu',
+                        'warning' => 'pending',
+                        'success' => 'terverifikasi',
+                        'primary' => 'selesai',
                     ]),
 
                 TextColumn::make('tanggal_hilang')
@@ -162,12 +169,12 @@ class BarangHilangResource extends Resource
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
-                SelectFilter::make('status')
-                    ->options([
-                        'hilang' => 'Hilang',
-                        'ditemukan' => 'Ditemukan',
-                        'menunggu' => 'Menunggu',
-                    ])
+                // SelectFilter::make('status')
+                //     ->options([
+                //         'hilang' => 'Hilang',
+                //         'ditemukan' => 'Ditemukan',
+                //         'menunggu' => 'Menunggu',
+                //     ])
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

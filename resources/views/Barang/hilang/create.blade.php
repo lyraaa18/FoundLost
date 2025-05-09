@@ -38,6 +38,7 @@
                                     <span class="input-group-text bg-light"><i class="fas fa-phone"></i></span>
                                     <input type="text" class="form-control form-control-lg @error('contact') is-invalid @enderror" id="contact" name="contact" value="{{ old('contact') }}" placeholder="Nomor telepon/WhatsApp">
                                 </div>
+                                <small class="text-muted">Nomor telepon yang bisa dihubungi</small>
                                 @error('contact')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

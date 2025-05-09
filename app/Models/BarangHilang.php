@@ -22,6 +22,7 @@ class BarangHilang extends Model
         'nama_pemilik',
         'contact', 
         'lokasi_pengambilan',
+        'bukti_perjalanan',
     ];
 
 }

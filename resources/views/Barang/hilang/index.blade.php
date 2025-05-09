@@ -63,7 +63,7 @@
                                                 </div>
                                             @endif
                                             <div class="position-absolute top-0 start-0 m-3">
-                                                <span class="badge bg-{{ $barang->status == 'hilang' ? 'danger' : ($barang->status == 'menunggu' ? 'warning' : 'success') }} px-3 py-2 rounded-pill">
+                                                <!-- <span class="badge bg-{{ $barang->status == 'hilang' ? 'danger' : ($barang->status == 'menunggu' ? 'warning' : 'success') }} px-3 py-2 rounded-pill">
                                                     @if($barang->status == 'hilang')
                                                         <i class="fas fa-exclamation-circle me-1"></i>
                                                     @elseif($barang->status == 'menunggu')
@@ -72,6 +72,9 @@
                                                         <i class="fas fa-check-circle me-1"></i>
                                                     @endif
                                                     {{ ucfirst($barang->status) }}
+                                                </span> -->
+                                                <span class="badge bg-danger px-3 py-2 rounded-pill">
+                                                    <i class="fas fa-check-circle me-1"></i>Hilang
                                                 </span>
                                             </div>
                                         </div>

@@ -97,7 +97,6 @@ class LaporanBarangResource extends Resource
 
                         FileUpload::make('gambar_barang')
                             ->disk('public')
-                            ->directory('laporan-barang/bukti')
                             ->visibility('public')
                             ->required(),
 
@@ -119,9 +118,12 @@ class LaporanBarangResource extends Resource
                 ImageColumn::make('gambar_barang')
                     ->label('Bukti Foto')
                     ->disk('public')
+                    
                     ->square()
                     ->width(60)
                     ->height(60)
+                    // ->url(fn (LaporanBarang $record): string => $record->gambar_barang)
+                    // ->openUrlInNewTab()
                     ->toggleable(),
 
                 TextColumn::make('nama_barang')
@@ -168,8 +170,15 @@ class LaporanBarangResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
-                TextColumn::make('bukti_perjalanan')
+                ImageColumn::make('bukti_perjalanan')
                     ->label('Bukti Perjalanan')
+                    ->disk('public')
+                    ->square()
+                    ->width(60)
+                    ->height(60)
+                    // ->url(fn (LaporanBarang $record): string => $record->bukti_perjalanan)
+                    // ->openUrlInNewTab()
+                    ->toggleable(),
                     // ->url(fn (LaporanBarang $record): string => $record->bukti_perjalanan)
                     // ->openUrlInNewTab()
                     // ->toggleable()

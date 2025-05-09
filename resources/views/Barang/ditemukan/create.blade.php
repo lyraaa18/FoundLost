@@ -33,10 +33,10 @@
                         
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="kontak_pelapor" class="form-label fw-semibold">Kontak Pelapor <span class="text-danger">*</span></label>
+                                <label for="kontak_pelapor" class="form-label fw-semibold">Kontak <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-light"><i class="fas fa-phone"></i></span>
-                                    <input type="text" class="form-control form-control-lg @error('kontak_pelapor') is-invalid @enderror" id="kontak_pelapor" name="kontak_pelapor" value="{{ old('kontak_pelapor') }}" placeholder="Nomor telepon atau email" required>
+                                    <input type="text" class="form-control form-control-lg @error('kontak_pelapor') is-invalid @enderror" id="kontak_pelapor" name="kontak_pelapor" value="{{ old('kontak_pelapor') }}" placeholder="Nomor telepon/WhatsApp" required>
                                 </div>
                                 <small class="text-muted">Nomor telepon yang bisa dihubungi</small>
                                 @error('kontak_pelapor')
