@@ -9,15 +9,9 @@
                     <h4 class="mb-0 fw-bold">
                         <i class="fas fa-clipboard-list me-2"></i>Detail Barang Hilang
                     </h4>
-                    <span class="badge bg-{{ $barangHilang->status == 'hilang' ? 'danger' : ($barangHilang->status == 'menunggu' ? 'warning' : 'success') }} px-3 py-2 rounded-pill">
-                        @if($barangHilang->status == 'hilang')
-                            <i class="fas fa-exclamation-circle me-1"></i>
-                        @elseif($barangHilang->status == 'menunggu')
-                            <i class="fas fa-clock me-1"></i>
-                        @else
-                            <i class="fas fa-check-circle me-1"></i>
-                        @endif
-                        {{ ucfirst($barangHilang->status) }}
+                    <span class="badge bg-danger px-3 py-2 rounded-pill">
+                        <i class="fas fa-check-circle me-1"></i>
+                        Hilang    
                     </span>
                 </div>
 
@@ -37,6 +31,7 @@
                             </div>
                         </div>
                         
+                    
                         <div class="col-lg-7">
                             <h3 class="mb-3 fw-bold text-primary">{{ $barangHilang->nama_barang }}</h3>
                             <hr class="my-3">

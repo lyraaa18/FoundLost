@@ -31,10 +31,12 @@
                         </div>
                         
                         <div class="col-lg-7">
-                            <h5 class="fw-bold text-primary mb-3">
+                            <h3 class="mb-3 fw-bold text-primary">{{ $laporanBarang->nama_barang }}</h3>
+                            <hr class="my-3">
+                            <!-- <h5 class="fw-bold text-primary mb-3">
                                 <i class="fas fa-info-circle me-2"></i>Informasi Barang
                             </h5>
-                            <hr class="my-3">
+                            <hr class="my-3"> -->
                             
                             <div class="d-flex flex-column gap-3 mb-4">
                                 <div class="d-flex align-items-center">
