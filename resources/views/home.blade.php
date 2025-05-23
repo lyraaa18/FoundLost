@@ -58,7 +58,9 @@
                             <div class="rounded-circle bg-primary bg-opacity-10 p-3 d-inline-flex mb-3">
                                 <i class="fas fa-list fa-2x text-primary"></i>
                             </div>
-                            <h2 class="display-5 fw-bold text-primary mb-0">{{ $totalLaporan ?? '0' }}</h2>
+                            <h2 class="display-5 fw-bold text-primary mb-0">
+                                {{ \App\Models\BarangHilang::count() + \App\Models\LaporanBarang::count() }}
+                            </h2>
                             <p class="text-muted mb-0">Total Laporan</p>
                         </div>
                     </div>
@@ -69,7 +71,9 @@
                             <div class="rounded-circle bg-danger bg-opacity-10 p-3 d-inline-flex mb-3">
                                 <i class="fas fa-exclamation-circle fa-2x text-danger"></i>
                             </div>
-                            <h2 class="display-5 fw-bold text-danger mb-0">{{ $totalHilang ?? '0' }}</h2>
+                            <h2 class="display-5 fw-bold text-danger mb-0">
+                                {{ \App\Models\BarangHilang::count() }}    
+                            </h2>
                             <p class="text-muted mb-0">Barang Hilang</p>
                         </div>
                     </div>
@@ -80,7 +84,8 @@
                             <div class="rounded-circle bg-success bg-opacity-10 p-3 d-inline-flex mb-3">
                                 <i class="fas fa-check-circle fa-2x text-success"></i>
                             </div>
-                            <h2 class="display-5 fw-bold text-success mb-0">{{ $totalDitemukan ?? '0' }}</h2>
+                            <h2 class="display-5 fw-bold text-success mb-0">
+                                {{ \App\Models\LaporanBarang::count() }}</h2>
                             <p class="text-muted mb-0">Barang Ditemukan</p>
                         </div>
                     </div>

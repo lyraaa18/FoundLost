@@ -50,10 +50,16 @@ class BarangHilangResource extends Resource
                                     ->required()
                                     ->default(now()),
 
-                                TextInput::make('lokasi_hilang')
+                                Select::make('lokasi_hilang')
                                     ->label('Lokasi Hilang')
-                                    ->required()
-                                    ->maxLength(255),
+                                    ->options([
+                                        "Stasiun Bandung (BD)" => "Stasiun Bandung (BD)",
+                                        "Stasiun Bogor (BOO)" => "Stasiun Bogor (BOO)",
+                                        "Stasiun Cimahi (CMI)" => "Stasiun Cimahi (CMI)",
+                                        "Stasiun Sukabumi (SI)" => "Stasiun Sukabumi (SI)",
+                                        "Stasiun Kiaracondong (KAC)" => "Stasiun Kiaracondong (KAC)",
+                                    ])
+                                    ->required(),
 
                                 Select::make('status')
                                     ->label('Status')

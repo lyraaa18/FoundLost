@@ -72,4 +72,15 @@ class BarangHilangController extends Controller
     {
         return view('barang.hilang.show', compact('barangHilang'));
     }
+
+    public function exportPdf()
+    {
+        $dataHilang = BarangHilang::all();
+        $dataDitemukan = LaporanBarang::all();
+        $pdf = \PDF::loadView('filament.pages.riwayat-barang-pdf', [
+        'dataHilang' => $dataHilang,
+        'dataDitemukan' => $dataDitemukan,
+    ]);
+        return $pdf->download('riwayat-barang.pdf');
+    }
 }
